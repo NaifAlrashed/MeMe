@@ -22,14 +22,14 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     }
 
     @IBAction func camera(_ sender: Any) {
-        createAnLaunchUIImagePicker(with: .camera)
+        createAnLaunchUIImagePicker(withType: .camera)
     }
 
     @IBAction func album(_ sender: Any) {
-        createAnLaunchUIImagePicker(with: .photoLibrary)
+        createAnLaunchUIImagePicker(withType: .photoLibrary)
     }
     
-    private func createAnLaunchUIImagePicker(with type: UIImagePickerControllerSourceType) {
+    private func createAnLaunchUIImagePicker(withType type: UIImagePickerControllerSourceType) {
         let controller = UIImagePickerController()
         controller.delegate = self
         controller.sourceType = type
@@ -40,7 +40,9 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         if let image = info["UIImagePickerControllerOriginalImage"] as? UIImage {
             imageView.image = image
         }
-        
+        dismiss(animated: true, completion: nil)
+    }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
 }
