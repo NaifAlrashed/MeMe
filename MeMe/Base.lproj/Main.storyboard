@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -51,24 +52,45 @@
                                     <barButtonItem systemItem="cancel" id="zLC-aW-G9f"/>
                                 </items>
                             </toolbar>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TOP" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aR1-SU-t1E">
+                                <rect key="frame" x="16" y="90" width="288" height="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="BOTTOM" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mgf-Gv-das">
+                                <rect key="frame" x="16" y="487" width="288" height="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                            </textField>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="aR1-SU-t1E" firstAttribute="top" secondItem="doE-BT-xNg" secondAttribute="bottom" constant="20" id="AZI-4r-cNs"/>
+                            <constraint firstItem="mgf-Gv-das" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="DDH-Kl-qUF"/>
                             <constraint firstItem="BLY-2h-p0Y" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="GUM-Ko-nx4"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="BLY-2h-p0Y" secondAttribute="bottom" id="IqY-Nd-sh0"/>
                             <constraint firstItem="Jvj-rJ-0Ux" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="NKY-pP-ZNl"/>
+                            <constraint firstItem="aR1-SU-t1E" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="PDU-Dj-edQ"/>
                             <constraint firstAttribute="trailing" secondItem="doE-BT-xNg" secondAttribute="trailing" id="SEt-H4-Haa"/>
                             <constraint firstItem="doE-BT-xNg" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Y14-DR-32q"/>
                             <constraint firstItem="Jvj-rJ-0Ux" firstAttribute="top" secondItem="doE-BT-xNg" secondAttribute="bottom" id="YzE-iQ-QSr"/>
                             <constraint firstItem="doE-BT-xNg" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="aMF-cl-jc5"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="aR1-SU-t1E" secondAttribute="trailing" id="ch1-IK-akb"/>
                             <constraint firstItem="BLY-2h-p0Y" firstAttribute="top" secondItem="Jvj-rJ-0Ux" secondAttribute="bottom" id="fzS-XP-7Pq"/>
                             <constraint firstAttribute="trailing" secondItem="Jvj-rJ-0Ux" secondAttribute="trailing" id="gct-JD-K1u"/>
+                            <constraint firstItem="BLY-2h-p0Y" firstAttribute="top" secondItem="mgf-Gv-das" secondAttribute="bottom" constant="20" id="qKe-2x-w2N"/>
                             <constraint firstAttribute="trailing" secondItem="BLY-2h-p0Y" secondAttribute="trailing" id="u8m-Xd-Ghi"/>
+                            <constraint firstItem="mgf-Gv-das" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="xKQ-pn-YB9"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="bottomTextField" destination="mgf-Gv-das" id="vzn-D2-j96"/>
                         <outlet property="cameraButton" destination="SFf-L1-kEj" id="PIy-AX-tJH"/>
                         <outlet property="imageView" destination="Jvj-rJ-0Ux" id="1cv-O0-6YB"/>
+                        <outlet property="shareButton" destination="sRf-1N-y8a" id="UuL-ON-BOr"/>
+                        <outlet property="topTextField" destination="aR1-SU-t1E" id="CJT-3M-B5q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
