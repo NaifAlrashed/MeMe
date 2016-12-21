@@ -47,7 +47,11 @@
                                     <constraint firstAttribute="height" constant="70" id="1Fx-KR-9zv"/>
                                 </constraints>
                                 <items>
-                                    <barButtonItem systemItem="action" id="sRf-1N-y8a"/>
+                                    <barButtonItem systemItem="action" id="sRf-1N-y8a">
+                                        <connections>
+                                            <action selector="share:" destination="BYZ-38-t0r" id="fKu-1y-W5a"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="qKD-Zv-rWF"/>
                                     <barButtonItem systemItem="cancel" id="zLC-aW-G9f"/>
                                 </items>
@@ -87,10 +91,12 @@
                     </view>
                     <connections>
                         <outlet property="bottomTextField" destination="mgf-Gv-das" id="vzn-D2-j96"/>
+                        <outlet property="bottomToolBar" destination="BLY-2h-p0Y" id="AHe-7i-PLB"/>
                         <outlet property="cameraButton" destination="SFf-L1-kEj" id="PIy-AX-tJH"/>
                         <outlet property="imageView" destination="Jvj-rJ-0Ux" id="1cv-O0-6YB"/>
                         <outlet property="shareButton" destination="sRf-1N-y8a" id="UuL-ON-BOr"/>
                         <outlet property="topTextField" destination="aR1-SU-t1E" id="CJT-3M-B5q"/>
+                        <outlet property="topToolBar" destination="doE-BT-xNg" id="7tV-OU-pgP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
