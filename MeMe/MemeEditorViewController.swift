@@ -7,9 +7,8 @@
 //
 
 import UIKit
-import Social
 
-class ViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate {
+class MemeEditorViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
@@ -19,20 +18,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
     @IBOutlet weak var bottomToolBar: UIToolbar!
     @IBOutlet weak var topToolBar: UIToolbar!
     
-    
-    struct MeMe {
-        let topText: String
-        let bottomText: String
-        let originalImage: UIImage
-        let memedImage: UIImage
-        
-        init(topText: String, bottomText: String, originalImage: UIImage, memedImage: UIImage) {
-            self.topText = topText
-            self.bottomText = bottomText
-            self.originalImage = originalImage
-            self.memedImage = memedImage
-        }
-    }
+    let memeModel = MeMeModel()
 
     
     
@@ -41,9 +27,12 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         super.viewDidLoad()
         topTextField.delegate = self
         bottomTextField.delegate = self
+        configureTextFields(textField: topTextField)
+        configureTextFields(textField: bottomTextField)
     }
 
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         subscribeToKeyboardNotifications()
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
         if imageView.image == nil {
@@ -51,12 +40,10 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
         } else {
             shareButton.isEnabled = true
         }
-        
-
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         unsubscribeFromKeyboardNotifications()
     }
 
@@ -78,11 +65,22 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
             self.save()
         }
         present(controller, animated: true, completion: nil)
-        
     }
     
     
     //  MARK: - helper functions
+    func configureTextFields(textField: UITextField) {
+        let memeTextAttributes:[String:Any] = [
+            NSStrokeColorAttributeName: UIColor.black,
+            NSForegroundColorAttributeName: UIColor.white,
+            NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
+            NSStrokeWidthAttributeName: -3.0]
+        
+        textField.delegate = self
+        textField.defaultTextAttributes = memeTextAttributes
+        textField.textAlignment = .center
+    }
+    
     private func createAndLaunchImagePicker(withType type: UIImagePickerControllerSourceType) {
         let controller = UIImagePickerController()
         controller.delegate = self
@@ -128,7 +126,7 @@ class ViewController: UIViewController, UINavigationControllerDelegate, UIImageP
 
     func save() {
         let memedImage = generateMemedImage()
-        let meme = MeMe(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imageView.image!, memedImage: memedImage)
+        let meme = memeModel.getMeMeInstance(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imageView.image!, memedImage: memedImage)
     }
     
     // MARK: - UIImagePickerControllerDelegate methods
