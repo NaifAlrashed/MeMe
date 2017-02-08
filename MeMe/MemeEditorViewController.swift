@@ -18,7 +18,6 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
     @IBOutlet weak var bottomToolBar: UIToolbar!
     @IBOutlet weak var topToolBar: UIToolbar!
     
-    let memeModel = MeMeModel()
 
     
     
@@ -63,9 +62,15 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
         let controller = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
         controller.completionWithItemsHandler = { Void in
             self.save()
+            self.dismiss(animated: true, completion: nil)
         }
         present(controller, animated: true, completion: nil)
     }
+    
+    @IBAction func cancel(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     
     
     //  MARK: - helper functions
@@ -126,7 +131,11 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
 
     func save() {
         let memedImage = generateMemedImage()
-        let meme = memeModel.getMeMeInstance(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imageView.image!, memedImage: memedImage)
+        let meme = MeMe(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imageView.image!, memedImage: memedImage)
+        
+        let appDelegate = UIApplication.shared.delegate
+            as! AppDelegate
+        appDelegate.memes.append(meme)
     }
     
     // MARK: - UIImagePickerControllerDelegate methods
