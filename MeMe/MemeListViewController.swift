@@ -10,6 +10,7 @@ import UIKit
 
 class MemeListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet weak var tableView: UITableView!
     var memes: [MeMe]!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +24,8 @@ class MemeListViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewWillAppear(animated)
         let delegate = UIApplication.shared.delegate as! AppDelegate
         memes = delegate.memes
-        print(memes.count)
+        
+        tableView.reloadData()
     }
     
     func createMemePressed () {
@@ -35,6 +37,7 @@ class MemeListViewController: UIViewController, UITableViewDelegate, UITableView
     
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("numberOfRowsInSection \(memes.count)")
         return memes.count
     }
     
@@ -43,6 +46,14 @@ class MemeListViewController: UIViewController, UITableViewDelegate, UITableView
         cell.textLabel?.text = memes[indexPath.row].topText + memes[indexPath.row].bottomText
         cell.imageView?.image = memes[indexPath.row].memedImage
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let controller = self.storyboard?.instantiateViewController(withIdentifier: "DetailedMeme")
+            as! DetailedMemeViewController
+        controller.theImage = memes[indexPath.row].memedImage
+        
+        navigationController?.pushViewController(controller, animated: true)
     }
 
 }

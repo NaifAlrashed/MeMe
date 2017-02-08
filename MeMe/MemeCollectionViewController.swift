@@ -10,11 +10,11 @@ import UIKit
 
 class MemeCollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
+    @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     var memes: [MeMe]!
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createMemePressed))
     }
@@ -23,6 +23,8 @@ class MemeCollectionViewController: UIViewController, UICollectionViewDelegate, 
         super.viewWillAppear(animated)
         let delegate = UIApplication.shared.delegate as! AppDelegate
         memes = delegate.memes
+        
+        collectionView.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -35,7 +37,17 @@ class MemeCollectionViewController: UIViewController, UICollectionViewDelegate, 
             as! MemesCollectionViewCell
         cell.imageView.image = memes[indexPath.row].memedImage
         cell.label.text = memes[indexPath.row].topText + memes[indexPath.row].bottomText
+
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let detailedController = self.storyboard?.instantiateViewController(withIdentifier: "DetailedMeme")
+            as! DetailedMemeViewController
+
+        detailedController.theImage = memes[indexPath.row].originalImage
+        
+        navigationController?.pushViewController(detailedController, animated: true)
     }
     
     func createMemePressed() {
