@@ -17,6 +17,13 @@ class MemeCollectionViewController: UIViewController, UICollectionViewDelegate, 
         super.viewDidLoad()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createMemePressed))
+        
+            let space:CGFloat = 3.0
+            let dimension = (view.frame.size.width - (2 * space)) / 3.0
+            
+            flowLayout.minimumInteritemSpacing = space
+            flowLayout.minimumLineSpacing = space
+            flowLayout.itemSize = CGSize(width: dimension, height: dimension)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,7 +52,7 @@ class MemeCollectionViewController: UIViewController, UICollectionViewDelegate, 
         let detailedController = self.storyboard?.instantiateViewController(withIdentifier: "DetailedMeme")
             as! DetailedMemeViewController
 
-        detailedController.theImage = memes[indexPath.row].originalImage
+        detailedController.theImage = memes[indexPath.row].memedImage
         
         navigationController?.pushViewController(detailedController, animated: true)
     }

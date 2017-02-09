@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MemeEditorViewController.swift
 //  MeMe
 //
 //  Created by Naif Alrashed on 12/15/16.
@@ -34,11 +34,7 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
         super.viewWillAppear(animated)
         subscribeToKeyboardNotifications()
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
-        if imageView.image == nil {
-            shareButton.isEnabled = false
-        } else {
-            shareButton.isEnabled = true
-        }
+        shareButton.isEnabled = imageView.image != nil
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -60,8 +56,10 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
         let memedImage = generateMemedImage()
         
         let controller = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
-        controller.completionWithItemsHandler = { Void in
-            self.save()
+        controller.completionWithItemsHandler = { (activity, completed, items, error) in
+            if (completed) {
+                self.save()
+            }
             self.dismiss(animated: true, completion: nil)
         }
         present(controller, animated: true, completion: nil)
@@ -119,8 +117,8 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
         toggleToolBars()
         
         // Render view to an image
-        UIGraphicsBeginImageContext(self.view.frame.size)
-        view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
+        UIGraphicsBeginImageContext(view.frame.size)
+        view.drawHierarchy(in: view.frame, afterScreenUpdates: true)
         let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         
@@ -166,8 +164,4 @@ class MemeEditorViewController: UIViewController, UINavigationControllerDelegate
     func keyboardWillHide(_ notification: Notification) {
         self.view.frame.origin.y = 0
     }
-    
-    
-    
 }
-
